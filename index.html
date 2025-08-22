@@ -99,30 +99,59 @@
 </head>
 
 <body>
-<div class="col-md-3 col-lg-2 sidebar d-flex flex-column">
-  <!-- หัวข้อ -->
-  <h4 class="mb-4">🚑 Hospital Dashboard</h4>
+<div class="row">
+  <!-- Sidebar -->
+  <div class="col-md-3 col-lg-2 sidebar d-flex flex-column">
+    <!-- หัวข้อ -->
+    <h4 class="mb-4">🚑 Hospital Dashboard</h4>
 
-  <!-- ปุ่มซ่อน/แสดงเมนู -->
-  <button class="btn btn-sm btn-light mb-3" data-bs-toggle="collapse" data-bs-target="#menuCollapse">
-    เมนูแสดง/ซ่อน
-  </button>
+    <!-- ปุ่มซ่อน/แสดงเมนู -->
+    <button class="btn btn-sm btn-light mb-3" data-bs-toggle="collapse" data-bs-target="#menuCollapse">
+      เมนูแสดง/ซ่อน
+    </button>
 
-  <!-- เมนูแท็บ -->
-  <div class="collapse show" id="menuCollapse">
-    <ul class="nav nav-pills flex-column" id="dashboardTabs">
-      <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" href="#refer">📊 เช็คการส่งต่อ (Refer)</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#ems">🧰 เช็คอุปกรณ์ EMS</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#emergency">🚑 เช็ครถ Emergency</a>
-      </li>
-    </ul>
+    <!-- เมนู -->
+    <div class="collapse show" id="menuCollapse">
+      <ul class="nav nav-pills flex-column" id="dashboardTabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" href="#refer">📊 เช็คการส่งต่อ (Refer)</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#ems">🧰 เช็คอุปกรณ์ EMS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#emergency">🚑 เช็ครถ Emergency</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="col-md-9 col-lg-10 p-4">
+    <div class="tab-content">
+      
+      <!-- Refer -->
+      <div class="tab-pane fade show active" id="refer">
+        <h5>📊 Dashboard การส่งต่อ</h5>
+        <!-- เนื้อหา Refer -->
+      </div>
+
+      <!-- EMS -->
+      <div class="tab-pane fade" id="ems">
+        <h5>🧰 เช็คอุปกรณ์ EMS</h5>
+        <!-- เนื้อหา EMS -->
+      </div>
+
+      <!-- Emergency -->
+      <div class="tab-pane fade" id="emergency">
+        <h5>🚑 เช็ครถ Emergency</h5>
+        <!-- เนื้อหา Emergency -->
+      </div>
+
+    </div>
   </div>
 </div>
+
 
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 p-4">
