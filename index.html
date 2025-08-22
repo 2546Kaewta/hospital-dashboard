@@ -86,20 +86,16 @@
             font-weight: bold;
         }
 
-        .chart-card {
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            /* padding ธรรมดาพอ */
-            height: auto;
-            /* ✅ ยืดตามเนื้อหา */
-        }
+.chart-card {
+    height: 400px;   /* กำหนดตายตัว */
+    display: flex;
+    flex-direction: column;
+}
+.chart-card canvas {
+    flex: 1;
+    max-height: 100% !important;
+}
 
-        .chart-card canvas {
-            width: 100% !important;
-            height: auto !important;
-            /* ✅ ปล่อยให้สูงพอดีข้อมูล */
-        }
     </style>
 </head>
 
