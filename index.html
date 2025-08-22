@@ -103,6 +103,45 @@
         color: #fff !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
+    .nav-tabs {
+    border-bottom: none;
+    justify-content: center;
+    gap: 14px;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: 0;
+}
+
+.nav-tabs .nav-link {
+    border-radius: 30px;
+    padding: 12px 26px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1e40af;
+    background: #f8fafc;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.nav-tabs .nav-link:hover {
+    background: #e0f2fe;
+    color: #2563eb;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.15);
+}
+
+.nav-tabs .nav-link.active {
+    background: linear-gradient(135deg, #3b82f6, #22c55e);
+    color: #fff !important;
+    border: 2px solid #22c55e;
+    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.3);
+    transform: translateY(-2px);
+}
 
     .chart-card {
         min-height: 300px;
