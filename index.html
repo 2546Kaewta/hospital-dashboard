@@ -12,47 +12,71 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap" rel="stylesheet">
 
-body {
-  background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe, #f0fdfa);
-  font-family: "Prompt", sans-serif;
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
-}
-
-.sidebar {
-  height: 100vh;
-  background: linear-gradient(180deg, #2563eb, #1e40af);
-  padding: 20px;
-  color: white;
-  border-radius: 0 20px 20px 0;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
-}
-
-.content-area {
+  <style>
+    body {
+        background: linear-gradient(to bottom right, #f0f9ff, #e0f2fe, #f0fdfa);
+    font-family: "Prompt", sans-serif;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .sidebar {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #2563eb, #1e40af);
+    padding: 20px;
+    color: white;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
+  }
+  .content-area {
   height: 100vh;
   overflow: hidden;  /* ตัด scroll ออก */
   display: flex;
   flex-direction: column;
 }
-
 .tab-content {
   flex: 1; 
   overflow-y: auto;  /* scroll เฉพาะเนื้อหาข้างใน */
   padding-bottom: 20px;
 }
 
-.stat-box {
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  font-weight: 600;
-  color: #fff;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  height: 100%;
-}
+    .nav-pills .nav-link {
+      border-radius: 12px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #e0f2fe;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
 
-.chart-card {
+    .nav-pills .nav-link.active {
+      background: linear-gradient(135deg, #3b82f6, #22c55e);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-pills .nav-link:hover {
+      background: #1e3a8a;
+      transform: translateX(4px);
+    }
+
+    .stat-box {
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    height: 100%;
+  }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+ .chart-card {
   height: 100%;   /* ปรับให้ยืดเต็ม */
   display: flex;
   flex-direction: column;
@@ -61,7 +85,7 @@ body {
 .chart-card canvas {
   flex: 1;  /* กราฟยืดเต็มพื้นที่การ์ด */
 }
-
+  </style>
 </head>
 
 <body>
