@@ -29,6 +29,7 @@
             box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
         }
 
+
         .card {
             overflow: hidden;
             /* กัน content ทะลุออก */
@@ -273,7 +274,35 @@
                         data: { labels: Object.keys(statusCount), datasets: [{ data: Object.values(statusCount), backgroundColor: ["#22c55e", "#facc15", "#ef4444"] }] },
                         options: { responsive: true, maintainAspectRatio: false }
                     });
+                    // Refer Table
+                    let referBody = document.getElementById("referTable");
+                    data.forEach(r => {
+                        referBody.innerHTML += `
+        <tr>
+            <td>${r.date}</td>
+            <td>${r.shift}</td>
+            <td>${r.staff}</td>
+            <td>${r.position}</td>
+            <td>${r.car}</td>
+        </tr>`;
+                    });
 
+                    // Emergency Data
+                    const emergencyData = [
+                        { date: "20/8/2025", car: "รถพยาบาล 1", driver: "อนันต์", status: "พร้อมใช้" },
+                        { date: "21/8/2025", car: "รถพยาบาล 2", driver: "สมชาย", status: "เข้าซ่อม" },
+                        { date: "21/8/2025", car: "รถพยาบาล 3", driver: "สุนีย์", status: "พร้อมใช้" }
+                    ];
+                    let emgBody = document.getElementById("emergencyTable");
+                    emergencyData.forEach(e => {
+                        emgBody.innerHTML += `
+        <tr>
+            <td>${e.date}</td>
+            <td>${e.car}</td>
+            <td>${e.driver}</td>
+            <td>${e.status}</td>
+        </tr>`;
+                    });
                     // Emergency Chart (Mock)
                     new Chart(document.getElementById("emergencyChart"), {
                         type: "line",
