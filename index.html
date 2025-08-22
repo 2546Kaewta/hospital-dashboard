@@ -28,10 +28,17 @@
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.1);
   }
   .content-area {
-    height: 100vh;
-    overflow-y: auto;
-    padding: 20px;
-  }
+  height: 100vh;
+  overflow: hidden;  /* ตัด scroll ออก */
+  display: flex;
+  flex-direction: column;
+}
+.tab-content {
+  flex: 1; 
+  overflow-y: auto;  /* scroll เฉพาะเนื้อหาข้างใน */
+  padding-bottom: 20px;
+}
+
     .nav-pills .nav-link {
       border-radius: 12px;
       margin-bottom: 10px;
@@ -69,15 +76,15 @@
       font-weight: bold;
     }
 
-    .card {
-      border-radius: 20px;
-      border: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
+ .chart-card {
+  height: 100%;   /* ปรับให้ยืดเต็ม */
+  display: flex;
+  flex-direction: column;
+}
 
-    .chart-card {
-      min-height: 300px;
-    }
+.chart-card canvas {
+  flex: 1;  /* กราฟยืดเต็มพื้นที่การ์ด */
+}
   </style>
 </head>
 
