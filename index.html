@@ -37,12 +37,15 @@
             flex-direction: column;
         }
 
-        .tab-content {
-            flex: 1;
-            overflow-y: auto;
-            /* scroll เฉพาะเนื้อหาข้างใน */
-            padding-bottom: 20px;
-        }
+      .tab-content {
+  flex: 1;
+  overflow-y: auto;   /* scroll เนื้อหาแทน */
+  padding-bottom: 20px;
+}
+
+.card {
+  overflow: hidden;   /* กัน content ทะลุออก */
+}
 
         .nav-pills .nav-link {
             border-radius: 12px;
