@@ -82,17 +82,19 @@
             font-weight: bold;
         }
 
-        .chart-card {
-            height: 400px;
-            /* fix ความสูงกราฟ ไม่ให้ล้น */
-            display: flex;
-            flex-direction: column;
-        }
+.chart-card {
+    height: 420px;  /* ขยายขึ้นนิดนึง */
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px; /* ✅ กัน label ถูกบัง */
+}
 
-        .chart-card canvas {
-            flex: 1;
-            max-height: 100% !important;
-        }
+.chart-card canvas {
+    flex: 1;
+    max-height: 100% !important;
+}
+
+
     </style>
 </head>
 
