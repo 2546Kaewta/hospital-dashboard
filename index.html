@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hospital Dashboard</title>
-  <!-- Bootstrap -->
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -83,7 +83,7 @@
 
     .card h5,
     .card h6 {
-      position: sticky; position: relative;
+      position: sticky;
       top: 0;
       background: transparent;
       /* ✅ ใช้โปร่งใส */
@@ -121,51 +121,41 @@
 
     /* Chart card */
     .chart-card {
-      height: 400px;
-      /* ✅ ขนาดคงที่ */
+      height: 380px;
       padding: 20px;
-      /* ✅ เพิ่ม padding รอบ ๆ */
       display: flex;
       flex-direction: column;
       justify-content: center;
-      /* ✅ จัดให้อยู่ตรงกลาง */
       align-items: center;
     }
 
     .chart-card canvas {
       width: 100% !important;
-      
       height: 100% !important;
-
       max-width: 100%;
       max-height: 100%;
-   
     }
 
     /* --- Mobile Mode --- */
     @media (max-width: 768px) {
       .sidebar {
         width: 60px;
-       
       }
 
       .main-content {
         margin-left: 60px;
-      
       }
 
-.sidebar h4,
-  .sidebar .nav-link {
-    opacity: 0;       /* ✅ ซ่อนแบบ smooth */
-    width: 0;
-    overflow: hidden;
-  }
+      .sidebar h4,
+      .sidebar .nav-link {
+        font-size: 0;
+      }
 
-  .sidebar .nav-link::before {
-    font-size: 20px;
-    margin-right: 0;
-  }
-}
+      .sidebar .nav-link::before {
+        font-size: 20px;
+        margin-right: 0;
+      }
+    }
 
     .sidebar:hover {
       width: 250px;
@@ -255,14 +245,14 @@
           <!-- Refer by Shift -->
           <div class="col-md-6">
             <div class="card p-4 chart-card">
-              <h6 class="text-center mb-3">📌 จำนวน Refer ตามเวร</h6>
+              <h6 class="text-center mb-3"> จำนวน Refer ตามเวร</h6>
               <canvas id="shiftChart"></canvas>
             </div>
           </div>
           <!-- Staff Position -->
           <div class="col-md-6">
             <div class="card p-4 chart-card">
-              <h6 class="text-center mb-3">👩‍⚕️ ตำแหน่งเจ้าหน้าที่</h6>
+              <h6 class="text-center mb-3"> ตำแหน่งเจ้าหน้าที่</h6>
               <canvas id="positionChart"></canvas>
             </div>
           </div>
@@ -270,7 +260,7 @@
 
         <!-- ตาราง Refer -->
         <div class="card p-4 mt-4 table-responsive">
-          <h5 class="text-center">📋 รายละเอียด Refer</h5>
+          <h5 class="text-center"> รายละเอียด Refer</h5>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -291,13 +281,13 @@
         <div class="row g-4">
           <div class="col-md-6">
             <div class="card p-4 chart-card">
-              <h5 class="text-center">📦 รายการอุปกรณ์ที่มี</h5>
+              <h5 class="text-center"> รายการอุปกรณ์ที่มี</h5>
               <canvas id="emsChart"></canvas>
             </div>
           </div>
           <div class="col-md-6">
             <div class="card p-4 table-responsive">
-              <h5 class="text-center">📋 ตารางเช็คลิสต์</h5>
+              <h5 class="text-center"> ตารางเช็คลิสต์</h5>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -317,13 +307,13 @@
         <div class="row g-4">
           <div class="col-md-12">
             <div class="card p-4 chart-card">
-              <h5 class="text-center">🚑 สถานะการเช็ครถ Emergency</h5>
+              <h5 class="text-center"> สถานะการเช็ครถ Emergency</h5>
               <canvas id="emergencyChart"></canvas>
             </div>
           </div>
           <div class="col-md-12">
             <div class="card p-4 mt-4 table-responsive">
-              <h5 class="text-center">📋 รายการเช็ครถ Emergency</h5>
+              <h5 class="text-center"> รายการเช็ครถ Emergency</h5>
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -343,7 +333,104 @@
   </div>
 
   <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer>
+    const staffUrl = "https://docs.google.com/spreadsheets/d/e/xxxx/pub?output=csv";
+    const emsUrl = "https://docs.google.com/spreadsheets/d/e/yyyy/pub?output=csv";
+    const emgUrl = "https://docs.google.com/spreadsheets/d/e/zzzz/pub?output=csv";
+
+    // ฟังก์ชันโหลด CSV แล้วแปลงเป็น array
+    async function loadCSV(url) {
+      const res = await fetch(url);
+      const text = await res.text();
+      return text.split("\n").map(r => r.split(","));
+    }
+
+    // โหลด Staff Data → ทำ Doughnut Chart
+    async function renderStaffChart() {
+      const rows = await loadCSV(staffUrl);
+      const posData = {};
+
+      rows.slice(1).forEach(r => {
+        let pos = r[3]; // คอลัมน์ Position
+        posData[pos] = (posData[pos] || 0) + 1;
+      });
+
+      new Chart(document.getElementById("positionChart"), {
+        type: "doughnut",
+        data: {
+          labels: Object.keys(posData),
+          datasets: [{
+            data: Object.values(posData),
+            backgroundColor: ["#3b82f6", "#22c55e", "#f59e0b"]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+    }
+
+    // โหลด EMS Data → ทำ Pie Chart
+    async function renderEMSChart() {
+      const rows = await loadCSV(emsUrl);
+      const statusCount = {};
+
+      rows.slice(1).forEach(r => {
+        let status = r[1]; // สมมติคอลัมน์ที่ 2 คือ Status
+        statusCount[status] = (statusCount[status] || 0) + 1;
+      });
+
+      new Chart(document.getElementById("emsChart"), {
+        type: "pie",
+        data: {
+          labels: Object.keys(statusCount),
+          datasets: [{
+            data: Object.values(statusCount),
+            backgroundColor: ["#22c55e", "#facc15", "#ef4444"]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+    }
+
+    // โหลด Emergency Data → ทำ Line Chart
+    async function renderEmergencyChart() {
+      const rows = await loadCSV(emgUrl);
+
+      // สมมติข้อมูลมี "เดือน | จำนวนการเช็ค"
+      const labels = rows.slice(1).map(r => r[0]);
+      const values = rows.slice(1).map(r => parseInt(r[1]));
+
+      new Chart(document.getElementById("emergencyChart"), {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "การเช็ครถ",
+            data: values,
+            borderColor: "#ef4444",
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: "bottom" } }
+        }
+      });
+    }
+
+    // 🚀 เรียกใช้งานทั้งหมด
+    renderStaffChart();
+    renderEMSChart();
+    renderEmergencyChart();
+  </script>
   <script defer>
 
     // ข้อมูล Mock
@@ -361,14 +448,12 @@
     const shiftData = {};
     data.forEach(d => shiftData[d.shift] = (shiftData[d.shift] || 0) + 1);
 
-// Shift Chart
-const ctxShift = document.getElementById("shiftChart").getContext("2d");
+    const ctxShift = document.getElementById("shiftChart").getContext("2d");
 
-// ✅ ใช้ความสูงจริงของ canvas
-const gradient = ctxShift.createLinearGradient(0, 0, 0, ctxShift.canvas.height);
-gradient.addColorStop(0, "#3b82f6");
-gradient.addColorStop(1, "#22c55e");
-
+    // ✅ Gradient สวย ๆ
+    const gradient = ctxShift.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, "#3b82f6");  // ฟ้า
+    gradient.addColorStop(1, "#22c55e");  // เขียว
 
     new Chart(ctxShift, {
       type: "bar",
