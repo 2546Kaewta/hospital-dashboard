@@ -2,171 +2,207 @@
 <html lang="th">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hospital Dashboard</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital Dashboard</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
 
-<style>
-body {
-  background: radial-gradient(circle at top left, #0f172a, #020617);
-  font-family: "Prompt", "Orbitron", sans-serif;
-  color: #e2e8f0;
-  line-height: 1.6;
-}
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #0f172a, #020617);
+      font-family: "Prompt", "Orbitron", sans-serif;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
 
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 250px;
-  overflow-y: auto;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  border-right: 2px solid rgba(59, 130, 246, 0.5);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-  transition: width 0.3s ease;
-  z-index: 1000;
-}
-.sidebar h4 {
-  font-weight: 600;
-  color: #38bdf8;
-  text-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
-}
-.nav-pills .nav-link {
-  background: transparent;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  color: #cbd5e1;
-  transition: all 0.3s ease;
-  margin-bottom: 0.5rem;
-  border-radius: 10px;
-}
-.nav-pills .nav-link.active {
-  background: linear-gradient(135deg, #0ea5e9, #22d3ee);
-  color: #0f172a !important;
-  font-weight: 600;
-  box-shadow: 0 0 20px rgba(14, 165, 233, 0.85);
-}
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      overflow-y: auto;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border-right: 2px solid rgba(59, 130, 246, 0.5);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+      transition: width 0.3s ease;
+      z-index: 1000;
+    }
 
-.main-content {
-  margin-left: 250px;
-  padding: 20px;
-  transition: margin-left 0.3s ease;
-}
+    .sidebar h4 {
+      font-weight: 600;
+      color: #38bdf8;
+      text-shadow: 0 0 8px rgba(56, 189, 248, 0.7);
+    }
 
-/* Card */
-.card {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
-  border-radius: 16px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 28px rgba(14, 165, 233, 0.65);
-}
-.card h5, .card h6 {
-  color: #f1f5f9;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-shadow: 0 0 6px rgba(14, 165, 233, 0.6);
-}
+    .nav-pills .nav-link {
+      background: transparent;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: #cbd5e1;
+      transition: all 0.3s ease;
+      margin-bottom: 0.5rem;
+      border-radius: 10px;
+    }
 
-/* Stat box */
-.stat-box {
-  border-radius: 16px;
-  padding: 1.2rem;
-  color: #fff;
-  text-align: center;
-  box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.5);
-}
-.stat-box p {
-  margin: 0;
-  font-size: 1rem;
-}
-.stat-number {
-  font-size: 2.4rem;
-  font-weight: 700;
-  margin-top: 0.5rem;
-  color: #f8fafc;
-  text-shadow: 0 0 8px rgba(34, 211, 238, 0.8);
-}
+    .nav-pills .nav-link.active {
+      background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+      color: #0f172a !important;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(14, 165, 233, 0.85);
+    }
 
-/* Chart card */
-.chart-card {
-  height: 420px;
-  display: flex;
-  flex-direction: column;
-}
-.chart-card canvas {
-  flex: 1;
-  max-height: 100% !important;
-  filter: drop-shadow(0px 0px 10px rgba(59, 130, 246, 0.6));
-}
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
 
-/* --- Mobile Mode --- */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 60px;              /* ✅ ย่อเหลือแค่ไอคอน */
-  }
-  .main-content {
-    margin-left: 60px;        /* ✅ เว้นพื้นที่ให้ */
-  }
-  .sidebar h4,
+    /* Card */
+    .card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 28px rgba(14, 165, 233, 0.65);
+    }
+
+    .card h5,
+    .card h6 {
+      position: sticky; position: relative;
+      top: 0;
+      background: transparent;
+      /* ✅ ใช้โปร่งใส */
+      color: #38bdf8;
+      /* ✅ ฟ้าให้อ่านง่าย */
+      z-index: 10;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+      text-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+    }
+
+
+
+    /* Stat box */
+    .stat-box {
+      border-radius: 16px;
+      padding: 1.2rem;
+      color: #fff;
+      text-align: center;
+      box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.5);
+    }
+
+    .stat-box p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .stat-number {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-top: 0.5rem;
+      color: #f8fafc;
+      text-shadow: 0 0 8px rgba(34, 211, 238, 0.8);
+    }
+
+    /* Chart card */
+    .chart-card {
+      height: 400px;
+      /* ✅ ขนาดคงที่ */
+      padding: 20px;
+      /* ✅ เพิ่ม padding รอบ ๆ */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* ✅ จัดให้อยู่ตรงกลาง */
+      align-items: center;
+    }
+
+    .chart-card canvas {
+      width: 100% !important;
+      
+      height: 100% !important;
+
+      max-width: 100%;
+      max-height: 100%;
+   
+    }
+
+    /* --- Mobile Mode --- */
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 60px;
+       
+      }
+
+      .main-content {
+        margin-left: 60px;
+      
+      }
+
+.sidebar h4,
   .sidebar .nav-link {
-    font-size: 0;             /* ✅ ซ่อนข้อความ */
+    opacity: 0;       /* ✅ ซ่อนแบบ smooth */
+    width: 0;
+    overflow: hidden;
   }
+
   .sidebar .nav-link::before {
-    font-size: 20px;          /* ✅ โชว์แค่ไอคอน */
+    font-size: 20px;
     margin-right: 0;
   }
 }
-.sidebar:hover {
-  width: 250px;
-}
-.sidebar:hover h4,
-.sidebar:hover .nav-link {
-  font-size: 16px;
-}
 
-/* Table */
-.table {
-  color: #e2e8f0;
-  border-radius: 12px;
-  overflow: hidden;
-}
-.table thead {
-  background: rgba(14, 165, 233, 0.2);
-  color: #38bdf8;
-  font-weight: 600;
-}
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(255, 255, 255, 0.03);
-}
-.table-striped tbody tr:nth-of-type(even) {
-  background-color: rgba(255, 255, 255, 0.06);
-}
-.table tbody tr:hover {
-  background: rgba(14, 165, 233, 0.15);
-  cursor: pointer;
-}
-</style>
+    .sidebar:hover {
+      width: 250px;
+    }
+
+    .sidebar:hover h4,
+    .sidebar:hover .nav-link {
+      font-size: 16px;
+    }
+
+    /* Table */
+    .table {
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 12px;
+    }
+
+    .table thead {
+      background: rgba(14, 165, 233, 0.15);
+      color: #38bdf8;
+      font-weight: 600;
+      text-shadow: 0 0 5px rgba(56, 189, 248, 0.5);
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .table-striped tbody tr:nth-of-type(even) {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  </style>
 
 
 </head>
+
 <body>
- <!-- Sidebar -->
+  <!-- Sidebar -->
   <div class="col-md-3 col-lg-2 sidebar">
     <h4 class="mb-4">🚑 Hospital Dashboard</h4>
     <ul class="nav nav-pills flex-column" id="dashboardTabs">
@@ -182,7 +218,7 @@ body {
     </ul>
   </div>
 
-    <!-- Main Content -->
+  <!-- Main Content -->
   <!-- Main Content -->
   <div class="main-content">
     <div class="tab-content">
@@ -215,7 +251,7 @@ body {
           </div>
         </div>
 
- <div class="row g-4">
+        <div class="row g-4">
           <!-- Refer by Shift -->
           <div class="col-md-6">
             <div class="card p-4 chart-card">
@@ -232,7 +268,7 @@ body {
           </div>
         </div>
 
-          <!-- ตาราง Refer -->
+        <!-- ตาราง Refer -->
         <div class="card p-4 mt-4 table-responsive">
           <h5 class="text-center">📋 รายละเอียด Refer</h5>
           <table class="table table-striped">
@@ -306,7 +342,7 @@ body {
     </div>
   </div>
 
-<!-- Bootstrap JS -->
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
   <script defer>
 
@@ -316,109 +352,107 @@ body {
       { date: "3/6/2025", shift: "ดึก", staff: "สุดารัตน์", position: "AEM-T", car: "รถคันที่ 3" },
       { date: "25/7/2025", shift: "เช้า", staff: "จารุวรรณ", position: "RN", car: "รถคันที่ 3" }
     ];
-            document.getElementById("referCount").textContent = data.length;
-            document.getElementById("staffCount").textContent = new Set(data.map(d => d.staff)).size;
-            document.getElementById("positionCount").textContent = new Set(data.map(d => d.position)).size;
-            document.getElementById("carCount").textContent = new Set(data.map(d => d.car)).size;
+    document.getElementById("referCount").textContent = data.length;
+    document.getElementById("staffCount").textContent = new Set(data.map(d => d.staff)).size;
+    document.getElementById("positionCount").textContent = new Set(data.map(d => d.position)).size;
+    document.getElementById("carCount").textContent = new Set(data.map(d => d.car)).size;
+
+    // Shift Chart
+    const shiftData = {};
+    data.forEach(d => shiftData[d.shift] = (shiftData[d.shift] || 0) + 1);
 
 // Shift Chart
-const shiftData = {};
-data.forEach(d => shiftData[d.shift] = (shiftData[d.shift] || 0) + 1);
-
 const ctxShift = document.getElementById("shiftChart").getContext("2d");
 
-// ✅ Gradient สวย ๆ
-const gradient = ctxShift.createLinearGradient(0, 0, 0, 400);
-gradient.addColorStop(0, "#3b82f6");  // ฟ้า
-gradient.addColorStop(1, "#22c55e");  // เขียว
+// ✅ ใช้ความสูงจริงของ canvas
+const gradient = ctxShift.createLinearGradient(0, 0, 0, ctxShift.canvas.height);
+gradient.addColorStop(0, "#3b82f6");
+gradient.addColorStop(1, "#22c55e");
 
-new Chart(ctxShift, {
-    type: "bar",
-    data: {
+
+    new Chart(ctxShift, {
+      type: "bar",
+      data: {
         labels: Object.keys(shiftData),
         datasets: [{
-            label: "จำนวน Refer",
-            data: Object.values(shiftData),
-            backgroundColor: gradient,
-            borderRadius: 12,   // มุมโค้งมน
-            borderSkipped: false,
-            hoverBackgroundColor: "#2563eb"
+          label: "จำนวน Refer",
+          data: Object.values(shiftData),
+          backgroundColor: gradient,
+          borderRadius: 12,   // มุมโค้งมน
+          borderSkipped: false,
+          hoverBackgroundColor: "#2563eb"
         }]
-    },
-    options: {
+      },
+      options: {
         responsive: true,
         maintainAspectRatio: false,
+        layout: {
+          padding: 20   // ✅ เว้นพื้นที่รอบกราฟ
+        },
         plugins: {
-            legend: {
-                display: false
-            },
-            tooltip: {
-                backgroundColor: "#1e293b",
-                titleColor: "#f1f5f9",
-                bodyColor: "#f1f5f9",
-                padding: 12,
-                borderColor: "#334155",
-                borderWidth: 1
-            }
+          legend: { display: false },
+          title: {
+            display: false  // ❌ ไม่เอาหัวข้อซ้ำ
+          },
+          tooltip: {
+            backgroundColor: "#1e293b",
+            titleColor: "#f1f5f9",
+            bodyColor: "#f1f5f9",
+            padding: 12,
+            borderColor: "#334155",
+            borderWidth: 1
+          }
         },
         scales: {
-            x: {
-                grid: {
-                    display: false
-                },
-                ticks: {
-                    font: {
-                        size: 14,
-                        weight: "600"
-                    },
-                    color: "#e2e8f0"
-                }
-            },
-            y: {
-                grid: {
-                    color: "#e2e8f0"
-                },
-                ticks: {
-                    stepSize: 1,
-                    font: {
-                        size: 14
-                    },
-                    color: "#e2e8f0"
-                }
+          x: {
+            grid: { display: false },
+            ticks: {
+              font: { size: 14, weight: "600" },
+              color: "#e2e8f0"
             }
+          },
+          y: {
+            grid: { color: "rgba(255,255,255,0.1)" },
+            ticks: {
+              stepSize: 1,
+              font: { size: 14 },
+              color: "#e2e8f0"
+            }
+          }
         }
-    }
-});
+      }
+    });
 
-            // Position Chart
-            const posData = {};
-            data.forEach(d => posData[d.position] = (posData[d.position] || 0) + 1);
-            new Chart(document.getElementById("positionChart"), {
-                type: "doughnut",
-                data: { labels: Object.keys(posData), datasets: [{ data: Object.values(posData), backgroundColor: ["#3b82f6", "#22c55e", "#f59e0b"] }] },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
 
-            // EMS Checklist
-            const emsData = [
-                { item: "Ambu Bag", status: "พร้อมใช้" },
-                { item: "Oxygen Tank", status: "เหลือน้อย" },
-                { item: "Suction", status: "พร้อมใช้" },
-                { item: "Monitor", status: "ชำรุด" }
-            ];
-            let tbody = document.getElementById("emsTable");
-            emsData.forEach(row => tbody.innerHTML += `<tr><td>${row.item}</td><td>${row.status}</td></tr>`);
-            let statusCount = {};
-            emsData.forEach(r => statusCount[r.status] = (statusCount[r.status] || 0) + 1);
-            new Chart(document.getElementById("emsChart"), {
-                type: "pie",
-                data: { labels: Object.keys(statusCount), datasets: [{ data: Object.values(statusCount), backgroundColor: ["#22c55e", "#facc15", "#ef4444"] }] },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-            // Refer Table
-            let referBody = document.getElementById("referTable");
-            data.forEach(r => {
-                referBody.innerHTML += `
+    // Position Chart
+    const posData = {};
+    data.forEach(d => posData[d.position] = (posData[d.position] || 0) + 1);
+    new Chart(document.getElementById("positionChart"), {
+      type: "doughnut",
+      data: { labels: Object.keys(posData), datasets: [{ data: Object.values(posData), backgroundColor: ["#3b82f6", "#22c55e", "#f59e0b"] }] },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+
+    // EMS Checklist
+    const emsData = [
+      { item: "Ambu Bag", status: "พร้อมใช้" },
+      { item: "Oxygen Tank", status: "เหลือน้อย" },
+      { item: "Suction", status: "พร้อมใช้" },
+      { item: "Monitor", status: "ชำรุด" }
+    ];
+    let tbody = document.getElementById("emsTable");
+    emsData.forEach(row => tbody.innerHTML += `<tr><td>${row.item}</td><td>${row.status}</td></tr>`);
+    let statusCount = {};
+    emsData.forEach(r => statusCount[r.status] = (statusCount[r.status] || 0) + 1);
+    new Chart(document.getElementById("emsChart"), {
+      type: "pie",
+      data: { labels: Object.keys(statusCount), datasets: [{ data: Object.values(statusCount), backgroundColor: ["#22c55e", "#facc15", "#ef4444"] }] },
+      options: { responsive: true, maintainAspectRatio: false }
+    });
+    // Refer Table
+    let referBody = document.getElementById("referTable");
+    data.forEach(r => {
+      referBody.innerHTML += `
         <tr>
             <td>${r.date}</td>
             <td>${r.shift}</td>
@@ -426,26 +460,26 @@ new Chart(ctxShift, {
             <td>${r.position}</td>
             <td>${r.car}</td>
         </tr>`;
-            });
+    });
 
-            // Emergency Data
-            const emergencyData = [
-                { date: "20/8/2025", car: "รถพยาบาล 1", driver: "อนันต์", status: "พร้อมใช้" },
-                { date: "21/8/2025", car: "รถพยาบาล 2", driver: "สมชาย", status: "เข้าซ่อม" },
-                { date: "21/8/2025", car: "รถพยาบาล 3", driver: "สุนีย์", status: "พร้อมใช้" }
-            ];
-            let emgBody = document.getElementById("emergencyTable");
-            emergencyData.forEach(e => {
-                emgBody.innerHTML += `
+    // Emergency Data
+    const emergencyData = [
+      { date: "20/8/2025", car: "รถพยาบาล 1", driver: "อนันต์", status: "พร้อมใช้" },
+      { date: "21/8/2025", car: "รถพยาบาล 2", driver: "สมชาย", status: "เข้าซ่อม" },
+      { date: "21/8/2025", car: "รถพยาบาล 3", driver: "สุนีย์", status: "พร้อมใช้" }
+    ];
+    let emgBody = document.getElementById("emergencyTable");
+    emergencyData.forEach(e => {
+      emgBody.innerHTML += `
         <tr>
             <td>${e.date}</td>
             <td>${e.car}</td>
             <td>${e.driver}</td>
             <td>${e.status}</td>
         </tr>`;
-            });
+    });
 
-             // Emergency Chart
+    // Emergency Chart
     new Chart(document.getElementById("emergencyChart"), {
       type: "line",
       data: {
@@ -458,8 +492,8 @@ new Chart(ctxShift, {
         plugins: { legend: { position: "bottom" } },
         layout: { padding: 10 }
       }
-            });
-        </script>
+    });
+  </script>
 </body>
 
 </html>
